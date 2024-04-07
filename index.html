@@ -48,15 +48,7 @@
         height: 300px;
         gap: 20px;
       }
-      /* .df {
-        width: 200px;
-        height: 200px;
-        border-radius: 180px;
-        background-color: rgb(54, 71, 86);
-        display: grid;
-        align-items: center;
-        justify-content: center;
-      } */
+
     </style>
   </head>
   <body>
@@ -67,61 +59,6 @@
         <button id="pause-btn">Pause</button>
       </div>
     </div>
-    <script>
-      let timerInterval;
-      let totalSeconds = 0;
-      let isPaused = false;
-
-      const timerElement = document.getElementById("timer");
-      const startButton = document.getElementById("start-btn");
-      const pauseButton = document.getElementById("pause-btn");
-
-      function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-          .toString()
-          .padStart(2, "0")}`;
-      }
-
-      function updateTimer() {
-        timerElement.textContent = formatTime(totalSeconds);
-      }
-
-      function startTimer() {
-        if (!isPaused) {
-          totalSeconds--;
-          updateTimer();
-        }
-      }
-
-      function startButtonClick() {
-        if (!timerInterval) {
-          timerInterval = setInterval(startTimer, 100);
-        }
-      }
-
-      function pauseButtonClick() {
-        isPaused = !isPaused;
-      }
-
-      function checkTimer() {
-        if (totalSeconds === 0) {
-          alert("Taymer 0 ga teng bo'ldi!");
-          clearInterval(timerInterval);
-          timerInterval = null;
-        }
-      }
-
-      const promptMinutes = parseInt(
-        prompt("Iltimos, taymer uchun minutni kiriting:")
-      );
-      totalSeconds = promptMinutes * 60;
-      updateTimer();
-
-      startButton.addEventListener("click", startButtonClick);
-      pauseButton.addEventListener("click", pauseButtonClick);
-      setInterval(checkTimer, 100);
-    </script>
+    <script src="./app.js"></script>
   </body>
 </html>

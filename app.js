@@ -1,53 +1,54 @@
-// let btn = document.querySelector("#btn");
-// let di = document.querySelector("#di");
-// let bg1, bg2, bg3;
-// btn.addEventListener("click", function () {
-//   bg1 = Math.floor(Math.random() * 255);
-//   bg2 = Math.floor(Math.random() * 255);
-//   bg3 = Math.floor(Math.random() * 255);
+let timerInterval;
+let totalSeconds = 0;
+let isPaused = false;
 
-//   di.style.backgroundColor = `rgb(${bg1}, ${bg2}, ${bg3})`;
-// });
+const vaqt = document.querySelector("#timer");
+const startButton = document.querySelector("#start-btn");
+const pauseButton = document.querySelector("#pause-btn");
 
-// function randomColor() {
-//   let randomcolor1 = Math.floor(Math.random() * 255);
-//   let randomcolor2 = Math.floor(Math.random() * 255);
-//   let randomcolor3 = Math.floor(Math.random() * 255);
-//   return `rgb(${randomcolor1},${randomcolor2},${randomcolor3})`;
-// }
-// section.style.backgroundColor = `linear-gradient(180deg,${randomcolor1}, ${randomcolor2}, ${randomcolor3})`;;
-// body.style.backgroundImage = `linear-gradient(180deg,${randomcolor1}, ${randomcolor2}, ${randomcolor3})`;
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+    .toString()
+    .padStart(2, "0")}`;
+}
 
-//  let minut = 0;
-//  let secuds = 0;
-//  let soat = 0;
+function updateTimer() {
+  vaqt.textContent = formatTime(totalSeconds);
+}
 
-//  let inreval = setInterval(()=>{
-//     secuds += 1;
+function startTimer() {
+  if (!isPaused) {
+    totalSeconds--;
+    updateTimer();
+  }
+}
 
-//     title.textContent = `${minut < 10 ? `0${minut}`: minut}:${secuds < 10 ? `0${secuds}`: secuds}`;
+function startButtonClick() {
+  if (!timerInterval) {
+    timerInterval = setInterval(startTimer, 100);
+  }
+}
 
-// });
-// let button1 = document.querySelector("#btn");
-// let button2 = document.querySelector("#btn2");
-// let title = document.querySelector("#title");
+function pauseButtonClick() {
+  isPaused = !isPaused;
+}
 
-// function btnClick() {
-//   // let h2 = button1.nextElementSibling.nextElementSibling;
-//   if (+title.textContent == 20) {
-//     alert("tugadi");
-//   } else {
-//     title.textContent++;
-//   }
-// }
-// button1.setAttribute("onclick", "btnClick()");
+function checkTimer() {
+  if (totalSeconds === 0) {
+    alert("Taymer 0 ga teng bo'ldi!");
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
 
-// function btnClick2() {
-//   // let h2 = button2.nextElementSibling;
-//   if (+title.textContent == 1) {
-//     alert("tugadi");
-//   } else {
-//     title.textContent--;
-//   }
-// }
-// button2.setAttribute("onclick", "btnClick2()");
+const promptMinutes = parseInt(
+  prompt("Iltimos, taymer uchun minutni kiriting:")
+);
+totalSeconds = promptMinutes * 60;
+updateTimer();
+
+startButton.addEventListener("click", startButtonClick);
+pauseButton.addEventListener("click", pauseButtonClick);
+setInterval(checkTimer, 100);
