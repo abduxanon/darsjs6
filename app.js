@@ -46,7 +46,7 @@ function checkTimer() {
 const promptMinutes = parseInt(
   prompt("Iltimos, taymer uchun minutni kiriting:")
 );
-jamisecund= promptMinutes * 60;
+jamisecund = promptMinutes * 60;
 updateTimer();
 
 startButton.addEventListener("click", startButtonClick);
