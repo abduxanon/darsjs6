@@ -1,42 +1,42 @@
-let timerInterval;
-let totalSeconds = 0;
-let isPaused = false;
+let oralig;
+let jamisecund = 0;
+let tugtatish = false;
 
-const vaqt = document.querySelector("#timer");
-const startButton = document.querySelector("#start-btn");
-const pauseButton = document.querySelector("#pause-btn");
+let vaqt = document.querySelector("#timer");
+let startButton = document.querySelector("#start-btn");
+let pauseButton = document.querySelector("#pause-btn");
 
 function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
+  let minutes = Math.floor(seconds / 60);
+  let remainingSeconds = seconds % 60;
   return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
     .toString()
     .padStart(2, "0")}`;
 }
 
 function updateTimer() {
-  vaqt.textContent = formatTime(totalSeconds);
+  vaqt.textContent = formatTime(jamisecund);
 }
 
 function startTimer() {
-  if (!isPaused) {
-    totalSeconds--;
+  if (!tugtatish) {
+    jamisecund--;
     updateTimer();
   }
 }
 
 function startButtonClick() {
-  if (!timerInterval) {
-    timerInterval = setInterval(startTimer, 100);
+  if (!oralig) {
+    oralig = setInterval(startTimer, 100);
   }
 }
 
 function pauseButtonClick() {
-  isPaused = !isPaused;
+  tugtatish = !tugtatish;
 }
 
 function checkTimer() {
-  if (totalSeconds === 0) {
+  if (jamisecund === 0) {
     alert("Taymer 0 ga teng bo'ldi!");
     clearInterval(timerInterval);
     timerInterval = null;
@@ -46,7 +46,7 @@ function checkTimer() {
 const promptMinutes = parseInt(
   prompt("Iltimos, taymer uchun minutni kiriting:")
 );
-totalSeconds = promptMinutes * 60;
+jamisecund= promptMinutes * 60;
 updateTimer();
 
 startButton.addEventListener("click", startButtonClick);
