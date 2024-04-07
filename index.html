@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taymer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #timer {
+        font-size: 24px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: aliceblue;
+      }
+      #start-btn {
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 20px;
+      }
+      #start-btn:hover {
+        background-color: blue;
+        color: aliceblue;
+      }
+      #pause-btn {
+        padding: 10px 20px;
+        font-size: 20px;
+        border: none;
+        border-radius: 20px;
+      }
+      #pause-btn:hover {
+        background-color: blue;
+        color: aliceblue;
+      }
+      .container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(32, 50, 4);
+        border-radius: 180px;
+        width: 300px;
+        height: 300px;
+        gap: 20px;
+      }
+      /* .df {
+        width: 200px;
+        height: 200px;
+        border-radius: 180px;
+        background-color: rgb(54, 71, 86);
+        display: grid;
+        align-items: center;
+        justify-content: center;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="df">
+        <button id="start-btn">Start</button>
+        <h2 id="timer">00:00</h2>
+        <button id="pause-btn">Pause</button>
+      </div>
+    </div>
+    <script>
+      let timerInterval;
+      let totalSeconds = 0;
+      let isPaused = false;
+
+      const timerElement = document.getElementById("timer");
+      const startButton = document.getElementById("start-btn");
+      const pauseButton = document.getElementById("pause-btn");
+
+      function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+          .toString()
+          .padStart(2, "0")}`;
+      }
+
+      function updateTimer() {
+        timerElement.textContent = formatTime(totalSeconds);
+      }
+
+      function startTimer() {
+        if (!isPaused) {
+          totalSeconds--;
+          updateTimer();
+        }
+      }
+
+      function startButtonClick() {
+        if (!timerInterval) {
+          timerInterval = setInterval(startTimer, 100);
+        }
+      }
+
+      function pauseButtonClick() {
+        isPaused = !isPaused;
+      }
+
+      function checkTimer() {
+        if (totalSeconds === 0) {
+          alert("Taymer 0 ga teng bo'ldi!");
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+      }
+
+      const promptMinutes = parseInt(
+        prompt("Iltimos, taymer uchun minutni kiriting:")
+      );
+      totalSeconds = promptMinutes * 60;
+      updateTimer();
+
+      startButton.addEventListener("click", startButtonClick);
+      pauseButton.addEventListener("click", pauseButtonClick);
+      setInterval(checkTimer, 100);
+    </script>
+  </body>
+</html>
